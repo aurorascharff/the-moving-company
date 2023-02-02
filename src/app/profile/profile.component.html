@@ -1,0 +1,12 @@
+<div class="profile-content">
+  <mat-card class="profile-info" *ngIf="user$ | async as user">
+    <mat-card-title> Sales consultant </mat-card-title>
+    <br />
+    <p><strong>First Name: </strong> {{ user.givenName }}</p>
+    <p><strong>Last Name: </strong> {{ user.surname }}</p>
+    <p><strong>Email: </strong> {{ user.userPrincipalName }}</p>
+    <p><strong>Id: </strong> {{ user.id }}</p>
+  </mat-card>
+  <div></div>
+  <div></div>
+</div>

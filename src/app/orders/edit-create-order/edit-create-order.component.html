@@ -1,0 +1,128 @@
+<div
+  *ngLet="{
+    orderInEdit: orderInEdit$ | async,
+    productInEdit: productInEdit$ | async
+  } as vm"
+>
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmitOrder(vm.orderInEdit)">
+    <mat-form-field appearance="legacy" color="warn">
+      <mat-label>Customer name </mat-label>
+      <input matInput formControlName="customerName" />
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="warn">
+      <mat-label>Customer phone </mat-label>
+      <input matInput formControlName="customerPhone" />
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="warn">
+      <mat-label>Customer email </mat-label>
+      <input matInput formControlName="customerEmail" />
+    </mat-form-field>
+    <mat-form-field appearance="legacy" color="warn">
+      <mat-label>Order note</mat-label>
+      <textarea matInput formControlName="note"></textarea>
+    </mat-form-field>
+    <mat-form-field *ngIf="products.value" appearance="legacy" color="warn">
+      <mat-label>Services</mat-label>
+      <mat-chip-list>
+        <mat-chip
+          *ngFor="let product of products.value"
+          class="product-element"
+          color="warn"
+          (click)="editProduct(product)"
+        >
+          <mat-icon>
+            {{ product.productTypeId | productIcon }}
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </mat-form-field>
+
+    <div class="add-product">
+      <form
+        *ngIf="showProductForm"
+        [formGroup]="productForm"
+        (ngSubmit)="onSubmitProduct(vm.productInEdit)"
+      >
+        <mat-form-field appearance="legacy" color="warn">
+          <mat-label>Service</mat-label>
+          <mat-select formControlName="productType">
+            <mat-option
+              *ngFor="let productType of productTypes"
+              [value]="productType"
+            >
+              {{ productType.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="legacy" color="warn">
+          <mat-label>From address</mat-label>
+          <textarea matInput formControlName="fromAddress"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="legacy" color="warn">
+          <mat-label>To address</mat-label>
+          <textarea matInput formControlName="toAddress"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="legacy" color="warn">
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            formControlName="date"
+            [matDatepicker]="cleaningPicker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="cleaningPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #cleaningPicker></mat-datepicker>
+        </mat-form-field>
+
+        <div
+          [ngClass]="
+            !!vm.orderInEdit && !!vm.productInEdit?.id
+              ? 'form-buttons-triple'
+              : 'form-buttons'
+          "
+        >
+          <button mat-raised-button type="reset" (click)="clearProductInEdit()">
+            Close
+          </button>
+
+          <button
+            type="submit"
+            mat-raised-button
+            [disabled]="!productForm.valid"
+          >
+            {{ !!vm.orderInEdit && !!vm.productInEdit?.id ? "Edit" : "Add" }}
+          </button>
+          <button
+            *ngIf="!!vm.orderInEdit && !!vm.productInEdit?.id"
+            mat-raised-button
+            type="reset"
+            (click)="onDeleteProduct(vm.productInEdit)"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="!showProductForm">
+      <button mat-raised-button (click)="addProduct()">Add service</button>
+    </div>
+    <br />
+
+    <div class="form-buttons">
+      <button mat-raised-button type="reset" (click)="clearOrderInEdit()">
+        Clear
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        type="submit"
+        [disabled]="!orderForm.valid"
+      >
+        {{ !!vm.orderInEdit ? "Update" : "Create" }}
+      </button>
+    </div>
+  </form>
+</div>

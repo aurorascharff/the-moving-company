@@ -1,0 +1,23 @@
+.spinner {
+  display: grid;
+  place-items: center;
+}
+
+.page-content {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.error {
+  padding-left: 1rem;
+}
+
+.toolbar {
+  background-color: rgb(185, 32, 32);
+}

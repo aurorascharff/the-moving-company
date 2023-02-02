@@ -1,0 +1,90 @@
+<div *ngIf="orderData$ | async as orderData">
+  <mat-card>
+    <mat-form-field appearance="standard" color="warn">
+      <mat-label>Customer phone</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="11223344"
+        #input
+      />
+    </mat-form-field>
+    <table mat-table [dataSource]="orderData">
+      <ng-container matColumnDef="orderId">
+        <th mat-header-cell *matHeaderCellDef>Order Id</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="orderDate">
+        <th mat-header-cell *matHeaderCellDef>Date placed</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.date | date }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef>Customer</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="customer">
+            <span>
+              {{ element.customerName }}
+            </span>
+            <br />
+            <span class="customer-small-text">
+              {{ element.customerEmail }}
+            </span>
+            <br />
+            <span class="customer-small-text">
+              {{ element.customerPhone }}
+            </span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerId">
+        <th mat-header-cell *matHeaderCellDef>Customer Id</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.customerId }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="products">
+        <th mat-header-cell *matHeaderCellDef>Services</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="products">
+            <div class="product-item" *ngFor="let product of element.products">
+              <mat-icon class="product-icon">
+                {{ product.productTypeId | productIcon }}
+              </mat-icon>
+              {{ product.date | date }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef>Note</th>
+        <td mat-cell *matCellDef="let element">{{ element.note }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="updateOrder(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="deleteOrder(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card>
+</div>

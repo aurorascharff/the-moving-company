@@ -1,0 +1,29 @@
+<div *ngLet="isLoading$ | async as isLoading">
+  <div class="error" *ngIf="error$ | async as error">
+    <div *ngIf="error[0]">
+      {{ error[0] }}
+      <button (click)="removeError()" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="spinner">
+    <mat-spinner color="warn" *ngIf="isLoading"></mat-spinner>
+  </div>
+  <div class="page-content" *ngIf="productTypes$ | async as productTypes">
+    <app-order-table [productTypes]="productTypes"></app-order-table>
+    <div>
+      <mat-card>
+        <mat-card-title *ngLet="orderInEdit$ | async as orderInEdit">{{
+          !!orderInEdit ? "Update order" : "New order"
+        }}</mat-card-title>
+        <mat-card-content>
+          <app-edit-create-order
+            [productTypes]="productTypes"
+            [isLoading]="isLoading"
+          ></app-edit-create-order>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

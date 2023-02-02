@@ -1,0 +1,25 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  background-color: rgb(185, 32, 32);
+}
+
+.page {
+  background-color: rgb(246, 246, 246);
+  height: 100%;
+}
+
+.top-bar-info {
+  font-size: medium;
+}
+
+.toolbar-title {
+  cursor: pointer;
+}
+
+.toolbar-icon {
+  vertical-align: sub;
+  padding-right: 0.5rem;
+}

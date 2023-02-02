@@ -1,0 +1,20 @@
+.form-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-buttons-triple {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.add-product {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.product-element {
+  cursor: pointer;
+}

@@ -1,0 +1,27 @@
+<div class="page">
+  <mat-toolbar color="warn" class="toolbar">
+    <div class="toolbar-title" mat-button [routerLink]="['/']">
+      <mat-icon class="toolbar-icon">local_shipping</mat-icon>
+      <span> The Moving Company </span>
+    </div>
+    <div class="toolbar-spacer"></div>
+    <div *ngIf="loginDisplay">
+      <span *ngIf="activeOrders$ | async as activeOrders" class="top-bar-info">
+        There are {{ activeOrders }} active orders
+      </span>
+      <button (click)="refreshData()" mat-icon-button>
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+    <div class="toolbar-spacer"></div>
+    <a *ngIf="loginDisplay" mat-button [routerLink]="['orders']">Orders</a>
+    <a *ngIf="loginDisplay" mat-button [routerLink]="['profile']">Profile</a>
+    <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">
+      Login
+    </button>
+    <button mat-raised-button *ngIf="loginDisplay" (click)="logout()">
+      Logout
+    </button>
+  </mat-toolbar>
+  <router-outlet *ngIf="!isIframe"></router-outlet>
+</div>
