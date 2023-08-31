@@ -1,6 +1,6 @@
 # The Moving Company
 
-Angular app built as the front half of a project done in connection with a job interview
+Angular app built as the front half of a project done in connection with a job interview. Using Material UI and NgRx.
 
 Deployed at www.themovingcomp.com/
 
